@@ -2,11 +2,9 @@ const mysql = require('mysql');
 
 // Configurando o banco de dados (esta em rede)
 const db = mysql.createConnection({
-  host: '172.18.0.3',
-  host: '192.168.1.131',
-  host: 'contmysql',
-  user: 'userdb',
-  password: '123',
+  host: 'server',
+  user: 'root',
+  password: '12345',
   database: 'db'
 });
 
