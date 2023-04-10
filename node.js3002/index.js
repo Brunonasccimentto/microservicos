@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(upload.none());
 
 const db = mysql.createConnection({
-  host: 'mysql1',
+  host: 'server',
   user: 'root',
   password: '123456',
   database: 'db'
@@ -30,7 +30,7 @@ db.connect((err) => {
 });
 
 app.post('/cliente/gravar', (req, res) => {
-const sql = 'INSERT INTO clientes (nome, telefone, email, idtiposdeclientes, cep, logradouro, numero, complemento, bairro, cidade, uf) VALUES (?,?,?,?,?,?,?,?,?,?,?)';
+const sql = 'INSERT INTO clientes (nome, telefone, email, idtipo_cliente, cep, logradouro, numero, complemento, bairro, cidade, uf) VALUES (?,?,?,?,?,?,?,?,?,?,?)';
 const variables = [req.body.nome, req.body.telefone, req.body.email, req.body.idtiposdeclientes, req.body.cep, req.body.logradouro, req.body.numero, req.body.complemento, req.body.bairro, req.body.cidade, req.body.uf];
 db.query(sql, variables, (err) => {
   if (err) {
