@@ -1,12 +1,15 @@
 import connection from "./connection.js"
 import express from "express"
+import cors from 'cors';
 
 var PORT = 3003
 const app = express()
 
+app.use(cors())
+
 app.get('/cliente/buscar/id/:id', (req, res) => {
   let id = req.params.id
-  const query = `SELECT * FROM cliente WHERE id = ${id};`
+  const query = `SELECT * FROM cliente WHERE idcliente = ${id};`
 
   connection.query(query, (err, result) => {
     if (err) {
