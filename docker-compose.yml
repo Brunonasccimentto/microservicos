@@ -1,0 +1,18 @@
+ version: "1"
+ services:
+    nginx:
+      container_name: prodigyan-teste 
+      build: .
+      ports:
+        - 8000:80
+      environment:
+          IP_CONTAINER_TIPOS: 192.168.1.5
+          PORT_TIPOS: 3001
+          IP_CONTAINER_BUSCAR_ID: 192.168.1.5
+          PORT_BUSCAR_ID: 3003
+          IP_CONTAINER_BUSCAR_EMAIL: 192.168.1.5
+          PORT_BUSCAR_EMAIL: 3004
+          IP_CONTAINER_GRAVAR: 192.168.1.5
+          PORT_GRAVAR: 3002
+          IP_CONTAINER_TODOS: 192.168.1.5
+          PORT_TODOS: 3005

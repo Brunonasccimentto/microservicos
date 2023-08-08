@@ -1,20 +1,24 @@
 const express = require('express');
 const multer = require('multer');
-const db = require('./dbconexao');
+const createConnection = require('./dbconexao');
 const upload = multer();
 const router = express.Router();
 
+const db = createConnection()
+
 router.get('/cliente/buscar/email/:email', (req, res) => {
   const { email } = req.params;
-  const sql = 'SELECT * FROM cliente WHERE email = ?';
+  const sql = `SELECT idcliente, nome, telefone, email, logradouro, numero, complemento, bairro, cidade, uf, cep, tc.tipo FROM cliente
+  INNER JOIN tipo_cliente tc 
+  ON cliente.idtipo_cliente = tc.idtipo_cliente 
+  WHERE email = ?`;
 
   db.query(sql, [email], (err, result) => {
     if (err) {
-      console.log(`Erro ao buscar dados no banco de dados: ${err.message}`);
-      return res.status(500).send('Erro interno do servidor');
-    }
-    console.log(`Dados encontrados: ${JSON.stringify(result)}`);
-    return res.status(200).send(result);
+      return res.status(501).send([{ data: result, err: err.message, status: 501 }])
+    };
+
+    res.status(200).send([{ data: result, status: result.length > 0 ? 200 : 404 }])
   });
 });
 
